@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row my-3">
+    <div class="col">
+      <h1>{{ title }}</h1>
+      <div class="mt-2">
+        <button class="btn btn-primary me-2" (click)="exportForm()">
+          <i class="fas fa-download"></i> Export Form
+        </button>
+        <button class="btn btn-secondary" (click)="triggerImportInput()">
+          <i class="fas fa-upload"></i> Import Form
+        </button>
+        <input 
+          type="file" 
+          #fileInput 
+          accept=".json" 
+          style="display: none;" 
+          (change)="importForm($event)">
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-3">
+    <!-- Toolbox Column -->
+    <div class="col-md-3">
+      <app-toolbox></app-toolbox>
+    </div>
+    
+    <!-- Canvas Column -->
+    <div class="col-md-9">
+      <app-canvas></app-canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,226 @@
+<div class="form-field" [formGroup]="form">
+  <!-- Text Input Field -->
+  <div *ngIf="field.type === fieldType.TEXT && field.id" class="field-container">
+    <div class="field-header">
+      <label [for]="field.id" class="form-label">
+        {{ field.label }}
+        <span class="required-asterisk" *ngIf="field.required">*</span>
+        <span *ngIf="field.description" class="description-icon tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">{{ field.description }}</span>
+        </span>
+      </label>
+      <div *ngIf="showActions" class="field-actions">
+        <button class="btn btn-sm btn-outline-primary icon-btn"
+                (click)="editField.emit()"
+                title="Edit field">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger icon-btn"
+                (click)="removeField.emit()"
+                title="Remove field">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <input 
+      type="text" 
+      class="form-control" 
+      [id]="field.id" 
+      [formControlName]="field.id"
+      [placeholder]="field.placeholder || ''"
+    >
+  </div>
+
+  <!-- Textarea Field -->
+  <div *ngIf="field.type === fieldType.TEXTAREA && field.id" class="field-container">
+    <div class="field-header">
+      <label [for]="field.id" class="form-label">
+        {{ field.label }}
+        <span class="required-asterisk" *ngIf="field.required">*</span>
+        <span *ngIf="field.description" class="description-icon tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">{{ field.description }}</span>
+        </span>
+      </label>
+      <div *ngIf="showActions" class="field-actions">
+        <button class="btn btn-sm btn-outline-primary icon-btn"
+                (click)="editField.emit()"
+                title="Edit field">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger icon-btn"
+                (click)="removeField.emit()"
+                title="Remove field">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <textarea 
+      class="form-control" 
+      [id]="field.id" 
+      [formControlName]="field.id"
+      [placeholder]="field.placeholder || ''"
+      rows="3"
+    ></textarea>
+  </div>
+
+  <!-- Single Checkbox fields have been removed in favor of Checkbox Group -->
+  
+  <!-- Checkbox Group Field -->
+  <div *ngIf="field.type === fieldType.CHECKBOX_GROUP && field.id" class="field-container">
+    <div class="field-header">
+      <label class="form-label">
+        {{ field.label }}
+        <span class="required-asterisk" *ngIf="field.required">*</span>
+        <span *ngIf="field.description" class="description-icon tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">{{ field.description }}</span>
+        </span>
+      </label>
+      <div *ngIf="showActions" class="field-actions">
+        <button class="btn btn-sm btn-outline-primary icon-btn"
+                (click)="editField.emit()"
+                title="Edit field">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger icon-btn"
+                (click)="removeField.emit()"
+                title="Remove field">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="checkbox-group-options">
+      <div class="form-check" *ngFor="let option of field.options || []; let i = index">
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          [id]="field.id + '_' + i" 
+          [formControlName]="field.id + '_' + i"
+          [value]="option.value"
+        >
+        <label class="form-check-label" [for]="field.id + '_' + i">
+          {{ option.label }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Radio Button Field -->
+  <div *ngIf="field.type === fieldType.RADIO && field.id" class="field-container">
+    <div class="field-header">
+      <label class="form-label">
+        {{ field.label }}
+        <span class="required-asterisk" *ngIf="field.required">*</span>
+        <span *ngIf="field.description" class="description-icon tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">{{ field.description }}</span>
+        </span>
+      </label>
+      <div *ngIf="showActions" class="field-actions">
+        <button class="btn btn-sm btn-outline-primary icon-btn"
+                (click)="editField.emit()"
+                title="Edit field">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger icon-btn"
+                (click)="removeField.emit()"
+                title="Remove field">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="radio-options">
+      <div class="form-check" *ngFor="let option of field.options || []; let i = index">
+        <input 
+          type="radio" 
+          class="form-check-input" 
+          [id]="field.id + '_' + i" 
+          [value]="option.value" 
+          [formControlName]="field.id"
+        >
+        <label class="form-check-label" [for]="field.id + '_' + i">
+          {{ option.label }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dropdown Field -->
+  <div *ngIf="field.type === fieldType.DROPDOWN && field.id" class="field-container">
+    <div class="field-header">
+      <label [for]="field.id" class="form-label">
+        {{ field.label }}
+        <span class="required-asterisk" *ngIf="field.required">*</span>
+        <span *ngIf="field.description" class="description-icon tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">{{ field.description }}</span>
+        </span>
+      </label>
+      <div *ngIf="showActions" class="field-actions">
+        <button class="btn btn-sm btn-outline-primary icon-btn"
+                (click)="editField.emit()"
+                title="Edit field">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger icon-btn"
+                (click)="removeField.emit()"
+                title="Remove field">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <select 
+      class="form-select" 
+      [id]="field.id" 
+      [formControlName]="field.id"
+    >
+      <option *ngFor="let option of field.options || []" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+
+  <!-- File Upload Field -->
+  <div *ngIf="field.type === fieldType.FILE && field.id" class="field-container">
+    <div class="field-header">
+      <label [for]="field.id" class="form-label">
+        {{ field.label }}
+        <span class="required-asterisk" *ngIf="field.required">*</span>
+        <span *ngIf="field.description" class="description-icon tooltip-container">
+          <i class="fas fa-question-circle"></i>
+          <span class="tooltip-text">{{ field.description }}</span>
+        </span>
+      </label>
+      <div *ngIf="showActions" class="field-actions">
+        <button class="btn btn-sm btn-outline-primary icon-btn"
+                (click)="editField.emit()"
+                title="Edit field">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger icon-btn"
+                (click)="removeField.emit()"
+                title="Remove field">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="custom-file">
+      <input 
+        type="file" 
+        class="form-control" 
+        [id]="field.id" 
+        [formControlName]="field.id"
+        [multiple]="field.multiple"
+        [accept]="field.acceptedFileTypes"
+      >
+      <small class="form-text text-muted" *ngIf="field.multiple">
+        You can select multiple files
+      </small>
+      <small class="form-text text-muted" *ngIf="field.acceptedFileTypes">
+        Accepted file types: {{ field.acceptedFileTypes }}
+      </small>
+    </div>
+  </div>
+</div>

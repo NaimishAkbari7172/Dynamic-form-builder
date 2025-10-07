@@ -1,0 +1,147 @@
+<div class="canvas-container">
+  <h3>Form Builder Canvas</h3>
+  <p class="text-muted" *ngIf="formFields.length === 0">Drop form elements here to build your form</p>
+
+  <div class="canvas-area"
+       cdkDropList
+       id="canvasList"
+       #canvasList="cdkDropList"
+       [cdkDropListData]="formFields"
+       [cdkDropListConnectedTo]="['toolboxList']"
+       (cdkDropListDropped)="onDrop($event)">
+    
+    <!-- Empty state when no fields are present -->
+    <div *ngIf="formFields.length === 0" class="empty-canvas">
+      <div class="dashed-outline">
+        <span>Drag form elements here</span>
+      </div>
+    </div>
+    
+    <!-- Form fields that have been added to the canvas -->
+    <div *ngFor="let field of formFields; let i = index" 
+         [id]="'field-' + field.id"
+         class="form-field-container"
+         [class.selected]="selectedField?.id === field.id"
+         cdkDrag
+         [cdkDragData]="field">
+      <!-- Render the form field with inline actions -->
+      <app-form-field 
+        [field]="field" 
+        [showActions]="true"
+        (editField)="selectField(field, i)"
+        (removeField)="removeField(field.id)"
+      ></app-form-field>
+      
+      <!-- Inline Field Editor (appears directly below the field) -->
+      <div *ngIf="selectedField && selectedField.id === field.id" class="field-editor-inline">
+        <div class="field-editor card p-3 mt-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4>Edit Form Field</h4>
+      <button class="btn btn-sm btn-outline-secondary" 
+              (click)="closeEditor()"
+              title="Close editor">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="form-group">
+      <label for="fieldLabel">Field Label</label>
+      <input type="text" 
+             id="fieldLabel" 
+             class="form-control" 
+             [(ngModel)]="selectedField.label"
+             (blur)="handleLabelBlur($event)">
+    </div>
+    
+    <div class="form-group" *ngIf="selectedField.type === 'text' || selectedField.type === 'textarea'">
+      <label for="fieldPlaceholder">Placeholder</label>
+      <input type="text" 
+             id="fieldPlaceholder" 
+             class="form-control" 
+             [(ngModel)]="selectedField.placeholder"
+             (blur)="handlePlaceholderBlur($event)">
+    </div>
+    
+    <div class="form-group">
+      <label for="fieldDescription">Description</label>
+      <textarea 
+             id="fieldDescription" 
+             class="form-control" 
+             rows="2"
+             [(ngModel)]="selectedField.description"
+             (blur)="handleDescriptionBlur($event)"
+             placeholder="Help text that appears with the field">
+      </textarea>
+      <small class="form-text text-muted">Provides context or instructions for this field</small>
+    </div>
+    
+    <div class="form-check">
+      <input type="checkbox" 
+             id="fieldRequired" 
+             class="form-check-input" 
+             [(ngModel)]="selectedField.required"
+             (change)="updateField(selectedField)">
+      <label class="form-check-label" for="fieldRequired">Required</label>
+    </div>
+
+    <!-- File upload specific options -->
+    <div *ngIf="selectedField.type === 'file'" class="file-options mt-3">
+      <h5>File Upload Options</h5>
+      <div class="form-check mb-3">
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          id="multiple-files" 
+          [(ngModel)]="selectedField.multiple"
+          (change)="updateField(selectedField)">
+        <label class="form-check-label" for="multiple-files">Allow multiple files</label>
+      </div>
+      
+      <div class="mb-3">
+        <label for="accepted-file-types" class="form-label">Accepted file types</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="accepted-file-types" 
+          [(ngModel)]="selectedField.acceptedFileTypes"
+          (blur)="handleFileTypesBlur($event)"
+          placeholder="e.g. .pdf,.jpg,.png">
+        <small class="form-text text-muted">
+          Enter file extensions separated by commas (e.g., .pdf,.jpg,.png)
+        </small>
+      </div>
+    </div>
+    
+    <!-- Options editor for radio buttons, dropdowns, and checkbox groups -->
+    <div *ngIf="selectedField.type === 'radio' || selectedField.type === 'dropdown' || selectedField.type === 'checkbox_group'" class="options-editor">
+      <h5>Options</h5>
+      <div *ngFor="let option of selectedField.options || []; let i = index" class="option-item">
+        <div class="option-row d-flex mb-2">
+          <div class="input-group me-2 flex-grow-1">
+            <input type="text" 
+                   class="form-control" 
+                   [attr.placeholder]="'Display text'"
+                   [ngModel]="selectedField?.options?.[i]?.label"
+                   (blur)="handleOptionLabelBlur($event, i)">
+          </div>
+          <div class="input-group flex-grow-1">
+            <input type="text" 
+                   class="form-control" 
+                   [attr.placeholder]="'Stored value'"
+                   [ngModel]="selectedField?.options?.[i]?.value"
+                   (blur)="handleOptionValueBlur($event, i)">
+            <button class="btn btn-outline-danger" 
+                    (click)="removeOption(selectedField, i)"
+                    [disabled]="getOptionsLength(selectedField) <= 1">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-primary btn-sm" 
+              (click)="addOption(selectedField)">
+        Add Option
+      </button>
+    </div>
+  </div>
+</div>

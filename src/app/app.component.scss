@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.container-fluid {
+  padding-top: 20px;
+}
+
+/* Export button styling */
+.btn-primary {
+  margin-bottom: 20px;
+}
+
+/* Layout for desktop */
+@media (min-width: 992px) {
+  .toolbox-container {
+    position: sticky;
+    top: 20px;
+  }
+}

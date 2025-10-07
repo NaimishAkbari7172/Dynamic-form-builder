@@ -1,0 +1,140 @@
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Drag and drop styles */
+.cdk-drag-preview {
+  z-index: 9999 !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  opacity: 0.8;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.4;
+  background: #ccc;
+  border: 1px dashed #999;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Custom utility classes */
+.cursor-move {
+  cursor: move;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Add some spacing utility classes */
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+/* Toolbox styles */
+.toolbox-container {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  margin-bottom: 20px;
+}
+
+.toolbox-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toolbox-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: move;
+  transition: background-color 0.2s;
+}
+
+.toolbox-item:hover {
+  background-color: #f1f1f1;
+}
+
+.toolbox-item-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbox-icon {
+  width: 24px;
+  text-align: center;
+}
+
+/* Canvas styles */
+.canvas-area {
+  min-height: 300px;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+.empty-canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 150px;
+}
+
+.dashed-outline {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  color: #777;
+}
+
+.form-field-container {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.2s;
+}
+
+.form-field-container.selected {
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.form-field-header {
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field-editor {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  margin-top: 20px;
+}
