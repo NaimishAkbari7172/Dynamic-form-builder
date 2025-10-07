@@ -36,7 +36,7 @@ Now open http://localhost:4200
  in your browser 🚀
 
 
-🏗️ Future Enhancements
+🏗️ Future Enhancements:
 ☁️ Backend integration (Node.js / Firebase)
 📊 Form response analytics
 🧾 Template gallery for quick form creation
